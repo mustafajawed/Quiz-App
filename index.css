@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: purple
+}
+.admin-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.admin-button:hover {
+    background-color: #0056b3;
+}
+.start-quiz-button {
+    padding: 15px 30px;
+    font-size: 20px;
+    color: white;
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.start-quiz-button:hover {
+    background-color: #218838;
+}
+.adminPswdMd{
+    display: flex;
+    width: 10%;
+}

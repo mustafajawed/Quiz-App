@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="https://icon-library.com/images/admin-icon-png/admin-icon-png-28.jpg"
+        type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+</head>
+
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+    }
+
+    .content {
+        max-width: 600px;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+
+    input[type="text"],
+    select {
+        width: calc(100% - 20px);
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+    .go-to-home {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .go-to-home:hover {
+            background-color: #0056b3;}
+</style>
+
+
+
+<body>
+    <div class="content">
+        <h2>Question To Add</h2>
+        <input type="text" id="question" placeholder="question"><br>
+
+        <h2>Answers to add</h2>
+        <input type="text" class="answer" placeholder="add answer 1"><br>
+        <input type="text" class="answer" placeholder="add answer 2"><br>
+        <input type="text" class="answer" placeholder="add answer 3"><br>
+        <input type="text" class="answer" placeholder="add answer 4"><br>
+
+        <h2>Correct Answer</h2>
+        <select id="correct-answer">
+            <option value="0">Answer 1</option>
+            <option value="1">Answer 2</option>
+            <option value="2">Answer 3</option>
+            <option value="3">Answer 4</option>
+        </select><br><br>
+
+        <button onclick="addQuestion()">Add Question</button>
+        <a href="./index.html" class="go-to-home">Go to Home</a>
+    </div>
+
+    <script>
+        let userStore = JSON.parse(localStorage.getItem("usersss")) || [];
+
+
+        window.addEventListener("load", () => {
+
+
+            let userExistsAdmin = userStore.some(existingUserAdmin => existingUserAdmin.email === "admin@admin.com" && existingUserAdmin.password === "1234");
+            console.log(userExistsAdmin)
+
+
+            if (!userExistsAdmin) {
+                location.pathname = "/login.html";
+            }
+        });
+
+
+
+
+
+        function addQuestion() {
+            let questionText = document.getElementById("question").value;
+            let answers = document.querySelectorAll(".answer");
+            let correctAnswerIndex = document.getElementById("correct-answer").value;
+
+            if (questionText.trim() === "" || Array.from(answers).some(answer => answer.value.trim() === "")) {
+                alert("Please fill in all fields");
+                return;
+            }
+
+            let answersArray = [];
+            answers.forEach((answer, index) => {
+                answersArray.push({
+                    text: answer.value,
+                    correct: index == correctAnswerIndex
+                });
+            });
+
+            let newQuestion = {
+                question: questionText,
+                answer: answersArray
+            };
+
+            let questions = JSON.parse(localStorage.getItem("questions")) || [];
+            questions.push(newQuestion);
+            localStorage.setItem("questions", JSON.stringify(questions));
+
+
+            alert("Question added successfully!");
+
+
+            document.getElementById("question").value = "";
+            answers.forEach(answer => answer.value = "");
+            document.getElementById("correct-answer").value = "0";
+
+
+        }
+    </script>
+</body>
+
+</html>
